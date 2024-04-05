@@ -8,8 +8,8 @@ app.use(cors());
 app.use(express.json());
 
 //process.env.MONGO_URL
-//"mongodb://localhost:27017/messages"
-mongoose.connect("mongodb://localhost:27017/trade-me", {useNewUrlParser: true, useUnifiedTopology: true})
+//"mongodb://localhost:27017/trade-me"
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true})
   .then(() => console.log('Connected to MongoDB!'))
   .catch(err => console.error(err));
 

@@ -10,18 +10,18 @@ import axios from "axios"
 
 function Bidding() {
 
-  const [user, setuser] = useState([]);
+    const [bids, setBids] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:4000/api/user')
-      .then(res => {
-        console.log(res?.data);
-        setuser(res?.data?.data);
-      });
-  }, []); 
-
-  console.log(user);
+    useEffect(() => {
+      axios
+        .get('http://localhost:5000/api/bid')
+        .then(res => {
+          console.log(res?.data);
+          setBids(res?.data?.data);
+        });
+    }, []); 
+  
+    console.log(bids);
 
     /*SHIPPING BTNS*/
     const [selectedButton, setSelectedButton] = useState(null);
@@ -89,15 +89,17 @@ function Bidding() {
             </div>
 
             <div className={Bid['S1-middle']}>
-                <h2 className={Bid['CurrentBid-info']}>$12.00</h2>
+            {bids.map((bids, index) => (
+                <h2 className={Bid['CurrentBid-info']}>${bids.buyValue}</h2>
+            ))}
             </div>
 
             <div className={Bid['S1-right']}>
 
                 {/* BACKEND INTEGRATION */}
 
-                {user.map((user, index) => (
-                <p className={Bid['CurrentBid-info']}>{user.user}</p>
+                {bids.map((bids, index) => (
+                <p className={Bid['CurrentBid-info']}>{bids.user}</p>
                 ))}
 
 
@@ -197,15 +199,22 @@ function Bidding() {
 
     
     <div className={`${Bid['SECTION5']} ${Bid['custom-font']}`}>
-        <div>
-            <img className={Bid['Adairs']} src={Image} />
-        </div>
+        {bids.map((bids, index) => (
+            
+            <div key={index} className={Bid['Prod']}>
+        
+                <img className={Bid['Adairs']} src={`/${bids.name}.png`} alt={bids.name}/>
 
-        <div>
-            <h1>2x Adairs Bedside Lamps</h1>
-            <p>Auckland</p>
-            <p>Closes Sunday 31st March. 10:06am</p>
-        </div>
+                <div className={Bid['ProdInfo']}>
+                    <h1>{bids.name}</h1>
+                    <h3>Current Bid: ${bids.buyValue}</h3>
+                    <p >
+                        {bids.location}, 
+                        Closes {bids.closeDate}
+                    </p>  
+                </div>          
+            </div> 
+        ))}
 
     </div>
 

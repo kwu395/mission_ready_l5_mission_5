@@ -21,6 +21,19 @@ services:
     environment:
       - MONGO_URL=mongodb://mongo:27017/mydb
 
+  backend_user:
+    build: ./backend-USER
+    container_name: backend_d
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend-USER:/app
+      - /app/node_modules
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/mydb
+
   frontend:
     build: ./frontend
     container_name: frontend_c

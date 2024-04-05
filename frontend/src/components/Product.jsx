@@ -29,12 +29,16 @@ export default function Product() {
             <img className={style.productImage} src={`/${product.name}.png`} alt={product.name}></img>
             <h3>{product.name}</h3>
             <p className={style.locationAndTime}>{product.location}, Closes {product.closeDate}</p>
+            
             {product.bids !== 0 && (
               <div>
                 <p className={style.bids}>{product.bids} Bids</p>
                 <p className={style.bidsValue}>${product.bidsValue}</p>
               </div>
             )}
+
+
+            
             {product.buyValue !== 0 && (
               <div>
                 <p className={style.buy}>Buy</p>

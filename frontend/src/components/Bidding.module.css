@@ -139,6 +139,20 @@
 }
 
 .Adairs{
+    height: 150px;
+    width: 160px;
     margin-left: 30px;
     margin-right: 30px;
+}
+
+.Prod{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+.ProdInfo{
+    display: flex;
+    flex-direction: column;
 }

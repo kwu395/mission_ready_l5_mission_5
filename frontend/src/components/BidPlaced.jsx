@@ -1,26 +1,28 @@
 import Placed from './BidPlaced.module.css';
 import Image from '../../public/GreenTick.png';
-import Lamp from '../../public/2x Adairs Bedside Lamps.png';
+//import Lamp from '../../public/2x Adairs Bedside Lamps.png';
 import { Container, Row, Col } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
 
 import axios from "axios"
 
 
+
 function BidPlaced() {
 
-    const [products, setProducts] = useState([]);
+    const [bids, setBids] = useState([]);
 
     useEffect(() => {
       axios
-        .get('http://localhost:4000/api/user')
+        .get('http://localhost:5000/api/bid')
         .then(res => {
           console.log(res?.data);
-          setProducts(res?.data?.data);
+          setBids(res?.data?.data);
         });
     }, []); 
   
-    console.log(products);
+    console.log(bids);
+
 
     return(
     <>
@@ -66,23 +68,36 @@ function BidPlaced() {
 
     <div className={Placed['SECTION3']}>
         <div className={Placed['S3-bid']}>
-            <h1 className={`${Placed['bid-bottom']} ${Placed['S3-autoBid-info']}`}>Good Luck</h1>
+
+        {bids.map((bids, index) => (
+            <h1 className={`${Placed['bid-bottom']} ${Placed['S3-autoBid-info']}`}>Bidding Closes {bids.closeDate}</h1>
+        ))}
+        
         </div>
+
     </div>
 
     {/*----------SECTION4--------------*/}
 
     <div className={Placed['SECTION4']}>
-        <div>
-            <img className={Placed['Adairs']} src={Lamp}/>
-        </div>
 
-        <div>  
-            <h1>2x Adairs Bedside Lamps</h1>
-            <p>Auckland</p>
-            <p>Closes Sunday 31st March. 10:06am</p>
-        </div>
-    </div> 
+        {bids.map((bids, index) => (
+            <div key={index} className={Placed['Prod']}>
+        
+                <img className={Placed['Adairs']} src={`/${bids.name}.png`} alt={bids.name}/>
+
+                <div className={Placed['ProdInfo']}>
+                    <h1>{bids.name}</h1>
+
+                    <p >
+                        {bids.location}, 
+                        Closes {bids.closeDate}
+                    </p>  
+                </div>          
+            </div> 
+        ))}
+    </div>
+
     </div>
 
     </Col>
