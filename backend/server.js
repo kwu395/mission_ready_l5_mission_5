@@ -24,6 +24,7 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
+// Get User 
 app.get('/api/user', async (req, res) => {
   console.log('Get Request');
   try {
